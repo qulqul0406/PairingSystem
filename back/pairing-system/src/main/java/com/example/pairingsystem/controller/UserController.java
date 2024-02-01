@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class userController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -39,6 +39,7 @@ public class userController {
     }
 
     //個人資料更新
+
 
 
     //是否配對
