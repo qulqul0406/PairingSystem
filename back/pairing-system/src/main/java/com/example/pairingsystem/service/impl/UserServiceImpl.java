@@ -55,23 +55,16 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-//        // 使用 MD5 生成密碼雜奏值
-//        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
-//
-//        // 比較密碼
-//        if(user.getPassword().equals(hashedPassword)){
-//            return user;
-//        }else{
-//            log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
+        // 使用 MD5 生成密碼雜奏值
+        String hashedPassword = DigestUtils.md5DigestAsHex(userLoginRequest.getPassword().getBytes());
 
-        // 比較密碼(未加密)
-        if(user.getPassword().equals(userLoginRequest.getPassword())){
+        // 比較密碼
+        if(user.getPassword().equals(hashedPassword)){
             return user;
         }else{
             log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+
     }
 }
