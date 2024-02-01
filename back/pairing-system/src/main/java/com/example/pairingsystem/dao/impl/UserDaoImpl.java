@@ -1,7 +1,7 @@
 package com.example.pairingsystem.dao.impl;
 
 import com.example.pairingsystem.dao.UserDao;
-//import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserRegisterRequest;
 import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.rowmapper.UserRowMapper;
 
@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserById(Integer userId) {
         String sql = "SELECT user_id, username, email, `password`, company, department, height, pairing, created_date, last_modified_date " +
-                "FROM `member` WHERE user_id = :userId";
+                "FROM member WHERE user_id = :userId";
 
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(String email) {
         String sql = "SELECT user_id, username, email, `password`, company, department, height, pairing, created_date, last_modified_date " +
-                "FROM `member` WHERE email = :email";
+                "FROM member WHERE email = :email";
         Map<String,Object> map = new HashMap<>();
         map.put("email", email);
 
@@ -59,27 +59,28 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-//    @Override
-//    public Integer createUser(UserRegisterRequest userRegisterRequest) {
-//        String sql = "INSERT INTO user(email, password, created_date, last_modified_date) " +
-//                "VALUES (:email, :password, :createdDate, :lastModifiedDate)";
-//
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("email", userRegisterRequest.getEmail());
-//        map.put("password", userRegisterRequest.getPassword());
-//
-//        Date now = new Date();
-//        map.put("createdDate", now);
-//        map.put("lastModifiedDate", now);
-//
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//
-//        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
-//
-//        int userId = keyHolder.getKey().intValue();
-//
-//        return userId;
-//    }
+    @Override
+    public Integer createUser(UserRegisterRequest userRegisterRequest) {
+        String sql = "INSERT INTO member(username, email, password, created_date, last_modified_date) " +
+                "VALUES (:username, :email, :password, :createdDate, :lastModifiedDate)";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", userRegisterRequest.getUsername());
+        map.put("email", userRegisterRequest.getEmail());
+        map.put("password", userRegisterRequest.getPassword());
+
+        Date now = new Date();
+        map.put("createdDate", now);
+        map.put("lastModifiedDate", now);
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
+
+        int userId = keyHolder.getKey().intValue();
+
+        return userId;
+    }
 
 
 }

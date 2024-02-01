@@ -1,7 +1,7 @@
 package com.example.pairingsystem.controller;
 
 import com.example.pairingsystem.dto.UserLoginRequest;
-//import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserRegisterRequest;
 import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.service.UserService;
 
@@ -21,7 +21,14 @@ public class userController {
     private UserService userService;
 
     //註冊
+    @PostMapping("/users/register")
+    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest){
+        Integer userId = userService.register(userRegisterRequest);
 
+        User user = userService.getUserById(userId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
 
     //登入
     @PostMapping("/users/login")

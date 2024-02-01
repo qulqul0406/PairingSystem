@@ -2,7 +2,7 @@ package com.example.pairingsystem.service.impl;
 
 import com.example.pairingsystem.dao.UserDao;
 import com.example.pairingsystem.dto.UserLoginRequest;
-//import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserRegisterRequest;
 import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.service.UserService;
 
@@ -22,23 +22,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-//    @Override
-//    public Integer register(UserRegisterRequest userRegisterRequest) {
-//        // 檢查註冊的email
-//        User user = userDao.getUserByEmail(userRegisterRequest.getEmail());
-//
-//        if (user != null){
-//            log.warn("該 email {} 已經被註冊", userRegisterRequest.getEmail());
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
-//
-//        // 使用 MD5 生成密碼雜奏值
-//        String hashedPassword = DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
-//        userRegisterRequest.setPassword(hashedPassword);
-//
-//        // 創建帳號
-//        return userDao.createUser(userRegisterRequest);
-//    }
+    @Override
+    public Integer register(UserRegisterRequest userRegisterRequest) {
+        // 檢查註冊的email
+        User user = userDao.getUserByEmail(userRegisterRequest.getEmail());
+
+        if (user != null){
+            log.warn("該 email {} 已經被註冊", userRegisterRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 使用 MD5 生成密碼雜奏值
+        String hashedPassword = DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
+        userRegisterRequest.setPassword(hashedPassword);
+
+        // 創建帳號
+        return userDao.createUser(userRegisterRequest);
+    }
 
     @Override
     public User getUserById(Integer userId) {
