@@ -6,6 +6,7 @@ import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.rowmapper.UserRowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -31,12 +32,9 @@ public class UserDaoImpl implements UserDao {
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
-
-        if(!userList.isEmpty()){
-            return userList.get(0);
-        }
-        else {
+        try {
+            return (User)namedParameterJdbcTemplate.queryForObject(sql, map, new UserRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -44,15 +42,13 @@ public class UserDaoImpl implements UserDao {
     public User getUserByEmail(String email) {
         String sql = "SELECT user_id, username, email, `password`, company, department, height, pairing, created_date, last_modified_date " +
                 "FROM member WHERE email = :email";
+        
         Map<String,Object> map = new HashMap<>();
         map.put("email", email);
 
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
-
-        if(!userList.isEmpty()){
-            return userList.get(0);
-        }
-        else {
+        try {
+            return (User)namedParameterJdbcTemplate.queryForObject(sql, map, new UserRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
 
