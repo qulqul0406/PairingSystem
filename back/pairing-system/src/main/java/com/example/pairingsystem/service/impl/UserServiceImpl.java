@@ -3,6 +3,7 @@ package com.example.pairingsystem.service.impl;
 import com.example.pairingsystem.dao.UserDao;
 import com.example.pairingsystem.dto.UserLoginRequest;
 import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserUpdateRequest;
 import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.service.UserService;
 
@@ -63,6 +64,24 @@ public class UserServiceImpl implements UserService {
             return user;
         }else{
             log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @Override
+    public void updateUser(Integer userId, UserUpdateRequest userUpdateRequest) {
+        // DB資料
+        User user = userDao.getUserById(userUpdateRequest.getUserId());
+
+        String hashedPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getPassword().getBytes());
+        String hashedNewPassword = DigestUtils.md5DigestAsHex(userUpdateRequest.getNewPassword().getBytes());
+
+        // 比較密碼
+        if(user.getPassword().equals(hashedPassword)){
+            userDao.updatePassword(userId, hashedNewPassword);
+        }else{
+            log.warn("user {} 的密碼不正確", userUpdateRequest.getUsername());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

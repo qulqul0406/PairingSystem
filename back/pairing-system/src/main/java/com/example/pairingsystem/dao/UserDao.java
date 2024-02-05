@@ -1,6 +1,7 @@
 package com.example.pairingsystem.dao;
 
 import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserUpdateRequest;
 import com.example.pairingsystem.model.User;
 
 public interface UserDao {
@@ -9,4 +10,7 @@ public interface UserDao {
     User getUserById(Integer userId);
 
     User getUserByEmail(String email);
+
+    void updatePassword(Integer userId,String newPassword);
+
 }

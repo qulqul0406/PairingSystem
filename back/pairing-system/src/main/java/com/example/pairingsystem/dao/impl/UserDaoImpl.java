@@ -2,6 +2,7 @@ package com.example.pairingsystem.dao.impl;
 
 import com.example.pairingsystem.dao.UserDao;
 import com.example.pairingsystem.dto.UserRegisterRequest;
+import com.example.pairingsystem.dto.UserUpdateRequest;
 import com.example.pairingsystem.model.User;
 import com.example.pairingsystem.rowmapper.UserRowMapper;
 
@@ -52,6 +53,18 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
 
+    }
+
+    @Override
+    public void updatePassword(Integer userId, String newPassword) {
+        String sql = "UPDATE member SET password = :newPassword WHERE user_id = :userId";
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("password", newPassword);
+        map.put("lastModifiedDate", new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
     }
 
 
