@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    //個人資料更新
+    //個人資料密碼更新
     @PutMapping("/users/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Integer userId,
             @RequestBody @Valid UserUpdateRequest userUpdateRequest){
@@ -53,7 +53,6 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(updateUser);
     }
-
 
 
     //是否配對

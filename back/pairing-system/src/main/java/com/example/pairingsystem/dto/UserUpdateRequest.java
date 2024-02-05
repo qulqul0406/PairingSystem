@@ -12,6 +12,7 @@ public class UserUpdateRequest {
     private String username;
     @NotBlank
     private String newPassword;
+    @NotBlank
     private  String password;
 //    private String salt;
 //    private String company;

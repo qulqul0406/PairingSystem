@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updatePassword(Integer userId, String newPassword) {
-        String sql = "UPDATE member SET password = :password WHERE user_id = :userId";
+        String sql = "UPDATE member SET password = :password, last_modified_date = :lastModifiedDate WHERE user_id = :userId";
 
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
