@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Integer userId) {
-        String sql = "SELECT user_id, username, email, `password`, company, department, height, pairing, created_date, last_modified_date " +
+        String sql = "SELECT user_id, username, email, password, company, department, height, pairing, created_date, last_modified_date " +
                 "FROM member WHERE user_id = :userId";
 
         Map<String,Object> map = new HashMap<>();
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updatePassword(Integer userId, String newPassword) {
-        String sql = "UPDATE member SET password = :newPassword WHERE user_id = :userId";
+        String sql = "UPDATE member SET password = :password WHERE user_id = :userId";
 
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);

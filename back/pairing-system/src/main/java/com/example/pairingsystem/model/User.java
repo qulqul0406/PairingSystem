@@ -12,6 +12,7 @@ public class User {
     private String email;
     @JsonIgnore
     private String password;
+    @JsonIgnore
     private String salt;
     private String company;
     private String department;
