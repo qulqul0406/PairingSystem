@@ -12,13 +12,21 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from '@mui/material';
+// import { makeStyles } from "@mui/material/styles";
+import { Link } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
 
-const pages = ['Home', 'Pairing', 'Chat'];
-const settings = ['Login', 'Register'];
+// const bgimag = 'https://3.bp.blogspot.com/-LDdtTqcloUM/U5hUYgfynsI/AAAAAAAAhIs/OlaQCr2lKVs/s800/bg_pattern2_aozora.png';
+// let useStyles = makeStyles(() => ({
+//     header: {
+//         backgroundImage: 'bgimag',
+//     },
+// }));
+
 
 
 export default function NavBar() {
+    // const classes = useStyles();
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -38,7 +46,7 @@ export default function NavBar() {
         setAnchorElUser(null);
     };
     return (
-        <AppBar position="static">
+        <AppBar position="static" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -71,30 +79,6 @@ export default function NavBar() {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -116,21 +100,36 @@ export default function NavBar() {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
+                        <Button
+                            key='home'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={Link} to='/'
+                        >
+                            首頁
+                        </Button>
+                        <Button
+                            key='pairing'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={Link} to='/pairing'
+                        >
+                            配對
+                        </Button>
+                        <Button
+                            key='chat'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            component={Link} to='/chatroom'
+                        >
+                            聊天室
+                        </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} >
+                            <PersonIcon color='action' fontSize="large"/>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -149,11 +148,25 @@ export default function NavBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem key='Login' onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><Link href="/login">{'Login'}</Link></Typography>
+                            <MenuItem key='Login' onClick={handleCloseUserMenu} component={Link} to='/login'>
+                                <Typography
+                                    textAlign="center"
+                                    sx={{
+                                        textDecoration: 'none',
+                                        color: 'gray'
+                                    }}>
+                                    Login
+                                </Typography>
                             </MenuItem>
-                            <MenuItem key='Register' onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">Register</Typography>
+                            <MenuItem key='Register' onClick={handleCloseUserMenu} component={Link} to='/register'>
+                                <Typography
+                                    textAlign="center"
+                                    sx={{
+                                        textDecoration: 'none',
+                                        color: 'gray'
+                                    }}>
+                                    Register
+                                </Typography>
                             </MenuItem>
                         </Menu>
                     </Box>

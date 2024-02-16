@@ -1,14 +1,12 @@
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import Home from "@/pages/Home";
+import Login from "@/pages/Login/login";
+import Register from "@/pages/Register/register";
+import Home from "@/pages/Home/home";
+import Pairing from "@/pages/Pairing/pairing"
+import ChatRoom from "@/pages/Chat/chat"
 import NavBar from "@/components/NavBar";
 
 import { Route, Routes } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import AccessDenied from "./pages/AccessDenied";
-
-const pages = ['首頁', '配對', '聊天室'];
-const settings = ['登入', 'Logout'];
 
 
 function App() {
@@ -16,12 +14,16 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/accessDenied" element={<AccessDenied />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pairing" element={<Pairing />} />
+          <Route path="/chatroom" element={<ChatRoom />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    
     </div>
   );
 }

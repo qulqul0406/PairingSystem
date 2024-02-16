@@ -8,4 +8,8 @@ export interface DemoDTO {
   msgInfo?: string
 }
 
+// export interface TodoSlice{
+//   id:number,
+//   text:string
+// }
 
