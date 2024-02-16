@@ -13,9 +13,5 @@ public class UserRegisterRequest {
     private String email;
     @NotBlank
     private String password;
-//    private String salt;
-//    private String company;
-//    private String department;
-//    private String height;
-//    private Integer pairing;
+
 }

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
         if (user != null){
             log.warn("該 email {} 已經被註冊", userRegisterRequest.getEmail());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"該 email 已經被註冊");
         }
 
         // 使用 MD5 生成密碼雜奏值
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         // 檢查 user 是否存在
         if (user == null){
             log.warn("該 email {} 尚未被註冊", userLoginRequest.getEmail());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"該帳號尚未被註冊");
         }
 
         // 使用 MD5 生成密碼雜奏值
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
             return user;
         }else{
             log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"密碼錯誤");
         }
 
     }
